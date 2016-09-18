@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Wj2-GX-FrV" customClass="WallpaperCollectionViewCell" customModule="desktoppr_ios" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="123" height="123"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="123" height="123"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hMa-52-Vdo"/>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstItem="hMa-52-Vdo" firstAttribute="leading" secondItem="Wj2-GX-FrV" secondAttribute="leading" id="7Sx-va-nWZ"/>
+                <constraint firstAttribute="bottom" secondItem="hMa-52-Vdo" secondAttribute="bottom" id="9TF-O0-L6M"/>
+                <constraint firstItem="hMa-52-Vdo" firstAttribute="top" secondItem="Wj2-GX-FrV" secondAttribute="top" id="EH7-Pu-AFK"/>
+                <constraint firstAttribute="trailing" secondItem="hMa-52-Vdo" secondAttribute="trailing" id="KXZ-bm-mcI"/>
+            </constraints>
+            <size key="customSize" width="161" height="161"/>
+            <connections>
+                <outlet property="image" destination="hMa-52-Vdo" id="WIZ-Th-dA1"/>
+            </connections>
+            <point key="canvasLocation" x="89.5" y="109.5"/>
+        </collectionViewCell>
+    </objects>
+</document>

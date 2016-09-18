@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A320" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" rowHeight="70" id="G3N-0O-DTL" customClass="UserInfoCell" customModule="desktoppr_ios" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="G3N-0O-DTL" id="fgP-rC-fwU">
+                <frame key="frameInset" width="375" height="69"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="br1-Nz-zFE">
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="4eG-f3-msi"/>
+                            <constraint firstAttribute="width" secondItem="br1-Nz-zFE" secondAttribute="height" multiplier="1:1" id="mKj-q0-iXZ"/>
+                            <constraint firstAttribute="height" constant="45" id="wdD-xr-WU2"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw5-tH-Jid">
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g5d-3o-esQ">
+                        <constraints>
+                            <constraint firstAttribute="height" constant="35" id="fpS-zU-RCt"/>
+                            <constraint firstAttribute="width" constant="75" id="wMz-FP-BKl"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <connections>
+                            <action selector="toggleFollowShip:" destination="G3N-0O-DTL" eventType="touchUpInside" id="Og8-iE-5LP"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Yw5-tH-Jid" firstAttribute="centerY" secondItem="br1-Nz-zFE" secondAttribute="centerY" id="0KM-bY-FIs"/>
+                    <constraint firstItem="g5d-3o-esQ" firstAttribute="leading" secondItem="Yw5-tH-Jid" secondAttribute="trailing" constant="8" symbolic="YES" id="1mZ-Cc-aty"/>
+                    <constraint firstItem="br1-Nz-zFE" firstAttribute="leading" secondItem="fgP-rC-fwU" secondAttribute="leadingMargin" id="467-Pt-svU"/>
+                    <constraint firstItem="Yw5-tH-Jid" firstAttribute="leading" secondItem="br1-Nz-zFE" secondAttribute="trailing" constant="8" symbolic="YES" id="CtA-Zf-oxO"/>
+                    <constraint firstItem="Yw5-tH-Jid" firstAttribute="centerY" secondItem="g5d-3o-esQ" secondAttribute="centerY" id="HlE-8G-0pW"/>
+                    <constraint firstItem="br1-Nz-zFE" firstAttribute="centerY" secondItem="fgP-rC-fwU" secondAttribute="centerY" id="VTq-py-BBe"/>
+                    <constraint firstItem="g5d-3o-esQ" firstAttribute="trailing" secondItem="fgP-rC-fwU" secondAttribute="trailingMargin" id="X6h-rz-MiA"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="followButton" destination="g5d-3o-esQ" id="XdQ-4m-CqF"/>
+                <outlet property="userAvatarView" destination="br1-Nz-zFE" id="ufO-oz-Daj"/>
+                <outlet property="userNameText" destination="Yw5-tH-Jid" id="aim-2l-nXy"/>
+            </connections>
+            <point key="canvasLocation" x="9.5" y="40"/>
+        </tableViewCell>
+    </objects>
+</document>

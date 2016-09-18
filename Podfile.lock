@@ -1,0 +1,35 @@
+PODS:
+  - Alamofire (4.0.1)
+  - AlamofireObjectMapper (4.0.0):
+    - Alamofire (~> 4.0)
+    - ObjectMapper (~> 2.0)
+  - ObjectMapper (2.1.0)
+  - SKPhotoBrowser (3.1.3)
+  - SwiftyJSON (3.0.0)
+
+DEPENDENCIES:
+  - Alamofire (~> 4.0)
+  - AlamofireObjectMapper (~> 4.0)
+  - SKPhotoBrowser (from `https://github.com/suzuki-0000/SKPhotoBrowser.git`, branch `swift3`)
+  - SwiftyJSON (= 3.0.0)
+
+EXTERNAL SOURCES:
+  SKPhotoBrowser:
+    :branch: swift3
+    :git: https://github.com/suzuki-0000/SKPhotoBrowser.git
+
+CHECKOUT OPTIONS:
+  SKPhotoBrowser:
+    :commit: 2ec9887a8f5bc82aabc61da035cd4ab9b1230b63
+    :git: https://github.com/suzuki-0000/SKPhotoBrowser.git
+
+SPEC CHECKSUMS:
+  Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  AlamofireObjectMapper: 9faa3ce5a240efda1b209009a2d6e1e949227abc
+  ObjectMapper: e5e0f8aef8590fc2ddcde7f27eddb255863ee6e9
+  SKPhotoBrowser: 4690ffb59db79849454241ecc65cc3d6af9965bf
+  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
+
+PODFILE CHECKSUM: 62412bb74f331ad34b4161def9f95e8e9ac79317
+
+COCOAPODS: 1.1.0.rc.3
