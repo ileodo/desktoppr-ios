@@ -93,8 +93,11 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         if(signupNC.viewControllers.count==0){
             
             let webViewController = UIViewController()
-            let webView = UIWebView(frame: webViewController.view.frame);
+            let webView = UIWebView(frame: webViewController.view.frame)
             webView.loadRequest(URLRequest(url: URL(string: "https://www.desktoppr.co/register")!))
+            webView.scalesPageToFit = true
+            
+            
             webViewController.view.addSubview(webView)
             webViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissSignup))
             webViewController.navigationItem.title = "Sign Up"

@@ -150,15 +150,15 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
     //MARK: - WallpaperCellDelegator
     
     func callSegueFromCell(cell: WallpaperCollectionViewCell, identifier: String) {
-        var images = [SKPhoto]()
+        var images = [SKWallpaper]()
         for wallpaper in wallpapers{
-            let photo = SKPhoto.photoWithImageURL((wallpaper.preview?.url!)!)
+            let photo = SKWallpaper.wallpaperWith(wallpaper)
             photo.shouldCachePhotoURLImage = true
             
             images.append(photo)
         }
         
-        let browser = SKPhotoBrowser(photos: images)
+        let browser = WallpaperViewController(photos: images)
         browser.initializePageIndex((collectionView?.indexPath(for: cell)?.row)!)
         present(browser, animated: true, completion: {})
     }

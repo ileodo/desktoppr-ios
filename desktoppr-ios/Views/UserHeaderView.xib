@@ -100,6 +100,9 @@
                             </constraints>
                             <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <state key="normal" title="Follow"/>
+                            <connections>
+                                <action selector="toggleFollowShip:" destination="zLO-hx-OZI" eventType="touchUpInside" id="MIf-S0-IyG"/>
+                            </connections>
                         </button>
                         <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="followers" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ds-3u-ong">
                             <rect key="frame" x="107" y="139" width="75" height="20"/>
