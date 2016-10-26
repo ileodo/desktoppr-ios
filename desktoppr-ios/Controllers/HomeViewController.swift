@@ -31,19 +31,23 @@ class HomeViewController: UICollectionViewController,UICollectionViewDelegateFlo
 
 
     // MARK: - Logic:Data
-    func loadWallpapers(page:UInt = 0){
+    func loadWallpapers(page:UInt = 1){
         APIWrapper.instance().getWallpapers(page:page,filter:.all, successHandler: { (wallpapers, count, pagination) in
-            self.wallpapers += wallpapers
             self.pagination = pagination
-            self.collectionView?.reloadData()
+            if(count==0){
+                self.pagination?.next = nil
+            }else{
+                self.wallpapers += wallpapers
+                self.collectionView?.reloadData()
+            }
         }) { (error, errorDescription) in
-            print(error)
-            print(errorDescription)
+            print(error ?? "Error")
+            print(errorDescription ?? "Some error happened")
         }
     }
     
     func refreshHandler(){
-        loadWallpapers(page: 0)
+        loadWallpapers()
         self.refresher.endRefreshing()
     }
 

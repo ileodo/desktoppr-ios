@@ -17,10 +17,12 @@ class GeneralCollectionViewController: UICollectionViewController, UICollectionV
         case Likes
     }
     
+    
+    var type:CollectionType!
+    var baseUsername:String!
+    
     var wallpapers = [Wallpaper]()
     var pagination:Pagination?
-    var type:CollectionType?
-    var baseUsername:String?
     
     // MARK: - Logic:View
     override func viewDidLoad() {
@@ -34,30 +36,30 @@ class GeneralCollectionViewController: UICollectionViewController, UICollectionV
         case .Likes:
             self.navigationItem.title = "Likes"
         }
-        loadWallpapers(0)
+        loadWallpapers()
     }
     
     // MARK: - Logic:Data
-    func loadWallpapers(_ page:UInt){
+    func loadWallpapers(_ page:UInt = 1){
         switch self.type! {
         case .Wallpapers:
-            APIWrapper.instance().getWallpapers(username: baseUsername!, page: page, filter:.all, successHandler: { (wallpapers, count, pagination) in
+            APIWrapper.instance().getWallpapers(username: baseUsername, page: page, filter:.all, successHandler: { (wallpapers, count, pagination) in
+                self.pagination = pagination
                 if(count==0){
-                    self.pagination?.next=nil
+                    self.pagination?.next = nil
                 }else{
                     self.wallpapers += wallpapers
-                    self.pagination = pagination
-                    self.collectionView?.reloadSections(IndexSet.init(integer: 0))
+                    self.collectionView?.reloadData()
                 }
             })
         case .Likes:
-            APIWrapper.instance().getLikesWallpaper(username: baseUsername!, page: page, successHandler: { (wallpapers, count, pagination) in
+            APIWrapper.instance().getLikesWallpaper(username: baseUsername, page: page, successHandler: { (wallpapers, count, pagination) in
+                self.pagination = pagination
                 if(count==0){
-                    self.pagination?.next=nil
+                    self.pagination?.next = nil
                 }else{
                     self.wallpapers += wallpapers
-                    self.pagination = pagination
-                    self.collectionView?.reloadSections(IndexSet.init(integer: 0))
+                    self.collectionView?.reloadData()
                 }
             })
         }

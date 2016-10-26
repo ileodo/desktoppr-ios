@@ -16,8 +16,12 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
     static let countOfRandomWallpapers = 18
     var wallpapers = [Wallpaper]()
     
-    var refresher:UIRefreshControl!
     
+    // MARK: - Properties:UI
+    var refresher:UIRefreshControl!
+    weak var searchUserAction: UIAlertAction?
+
+    // MARK: - Logic:UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,23 +46,29 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
         
         alert.addTextField { (textField) in
             textField.placeholder = "username"
+            textField.addTarget(self, action: #selector(self.textChanged(sender:)), for: .editingChanged)
         }
-        
-        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (_) in
+        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { (_) in
             let text = alert.textFields![0].text // Force unwrapping because we know it exists.
             APIWrapper.instance().userInfo(username: text!, successHandler: { (user) in
                 self.performSegue(withIdentifier: "showUser", sender: text)
-                }, failedHandler: { (_, _) in
-                    let notify = UIAlertController(title: "Error", message: "Can't find the target User.", preferredStyle: .alert)
-                    notify.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
-                    self.present(notify,animated: true,completion: nil)
-                    
+            }, failedHandler: { (_, _) in
+                let notify = UIAlertController(title: "Error", message: "Can't find the target User.", preferredStyle: .alert)
+                notify.addAction(UIAlertAction(title: "OK", style: .default, handler:nil))
+                self.present(notify,animated: true,completion: nil)
+                
             })
-        }))
-        
-        alert.addAction(UIAlertAction(title: "Cancel", style: .default, handler: nil))
-        
+        })
+        okAction.isEnabled = false
+        self.searchUserAction = okAction
+        alert.addAction(okAction)
+
         self.present(alert, animated: true, completion: nil)
+    }
+    
+    func textChanged(sender:UITextField) {
+        self.searchUserAction?.isEnabled = (!sender.text!.isEmpty)
     }
     
     // MARK: - Logic:Data
@@ -80,14 +90,13 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
                     self.refresher.endRefreshing()
                 }
             }) { (error:String?, errorDescription:String?) in
-                print(error)
-                print(errorDescription)
+                print(error ?? "Error")
+                print(errorDescription ?? "Some error happened")
                 self.refresher.endRefreshing()
             }
         }
         self.navigationItem.rightBarButtonItem?.isEnabled=true
     }
-    
     
     // MARK: - Collection view data source
     
@@ -165,5 +174,7 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
     }
     
 }
+
+
 
 

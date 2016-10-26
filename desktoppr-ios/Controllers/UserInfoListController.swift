@@ -16,10 +16,11 @@ class UserInfoListController: UITableViewController, ViewPresentable {
         case Followings
     }
     
-    var baseUsername:String?
+    var baseUsername:String!
+    var type:ListType!
+    
     var users = [User]()
     var pagination:Pagination?
-    var type:ListType?
     
     // MARK: - Logic:View
     override func viewDidLoad() {
@@ -28,27 +29,38 @@ class UserInfoListController: UITableViewController, ViewPresentable {
         switch self.type! {
         case .Followers:
             self.navigationItem.title = "Followers"
+            break;
         case .Followings:
             self.navigationItem.title = "Followings"
         }
-        loadUsersList(page: 0)
+        loadUsersList()
     }
     
     // MARK: - Logic:Data
-    func loadUsersList(page:UInt) {
+    func loadUsersList(page:UInt = 1) {
         switch self.type! {
         case .Followers:
-            APIWrapper.instance().getFollowers(username: baseUsername!, page: page, successHandler: { (users, count, pagination) in
-                    self.users += users
-                    self.pagination = pagination
-                    self.tableView.reloadSections(IndexSet.init(integer: 0),with: .none)
-                })
-        case .Followings:
-            APIWrapper.instance().getFollowing(username: baseUsername!, page: page, successHandler: { (users, count, pagination) in
-                self.users += users
+            APIWrapper.instance().getFollowers(username: baseUsername, page: page, successHandler: { (users, count, pagination) in
                 self.pagination = pagination
-                self.tableView.reloadSections(IndexSet.init(integer: 0),with: .none)
+                if(count==0){
+                    self.pagination?.next = nil
+                }else{
+                    self.users += users
+                    self.tableView.reloadData()
+                }
             })
+            
+        case .Followings:
+            APIWrapper.instance().getFollowing(username: baseUsername, page: page, successHandler: { (users, count, pagination) in
+                self.pagination = pagination
+                if(count==0){
+                    self.pagination?.next = nil
+                }else{
+                    self.users += users
+                    self.tableView.reloadData()
+                }
+            })
+            
         }
     }
 
@@ -75,13 +87,6 @@ class UserInfoListController: UITableViewController, ViewPresentable {
         
         cell.delegate = self
         cell.user = users[indexPath.row]
-        switch self.type! {
-        case .Followers:
-            cell.followed = Auth.followingList()?.contains(username: (cell.user?.username)!)
-            break
-        case .Followings:
-            cell.followed = true
-        }
         return cell
     }
     

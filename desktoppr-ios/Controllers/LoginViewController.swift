@@ -25,16 +25,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordText.delegate = self
         
         loginButton.isEnabled = true
-
+        loginButton.setBackgroundImage(UIImage().makeImageWithColorAndSize(color: UIColor.gray, size: loginButton.frame.size), for: .disabled)
+        
         if let remember = Auth.getRemember() {
             loginButton.isEnabled = false
+            let processPopup = progressBarDisplayer("Loging...",true)
             APIWrapper.instance().tokenAuth(remember.apiToken, { (user) in
                 Auth.login(user: user, apiToken: remember.apiToken)
                 self.performSegue(withIdentifier: "entry", sender: nil)
-                
+                processPopup.removeFromSuperview()
                 }, { (error) in
                     self.loginFailedAlert(message: error)
                     self.loginButton.isEnabled = true
+                    processPopup.removeFromSuperview()
             })
         }
         if let username = UserDefaults.standard.string(forKey: "username"){
@@ -73,14 +76,16 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         usernameText.resignFirstResponder()
         passwordText.resignFirstResponder()
-
+        let processPopup = progressBarDisplayer("Loging...",true)
         APIWrapper.instance().basicAuth((usernameText.text!,passwordText.text!), { (user, apiToken) in
             Auth.login(user: user, apiToken: apiToken)
             Auth.remember(username: self.usernameText.text!, apiToken: apiToken)
-            self.performSegue(withIdentifier: "entry", sender: sender)       
+            self.performSegue(withIdentifier: "entry", sender: sender)
+            processPopup.removeFromSuperview()
         }) { (error) in
             self.loginFailedAlert(message: error)
             self.loginButton.isEnabled = true
+            processPopup.removeFromSuperview()
         }
     }
     
@@ -118,6 +123,29 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         
         self.present(alert, animated: true, completion: nil)
 
+    }
+    
+    
+    
+    func progressBarDisplayer(_ msg:String, _ indicator:Bool ) -> UIView {
+        var messageFrame = UIView()
+        var strLabel = UILabel()
+        strLabel = UILabel(frame: CGRect(x: 50, y: 0, width: 200, height: 50))
+        strLabel.text = msg
+        strLabel.textColor = UIColor.white
+        messageFrame = UIView(frame: CGRect(x: view.frame.midX - 90, y: view.frame.midY - 25 , width: 180, height: 50))
+        messageFrame.layer.cornerRadius = 15
+        messageFrame.backgroundColor = UIColor(white: 0, alpha: 0.7)
+        if indicator {
+            var activityIndicator = UIActivityIndicatorView()
+            activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+            activityIndicator.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+            activityIndicator.startAnimating()
+            messageFrame.addSubview(activityIndicator)
+        }
+        messageFrame.addSubview(strLabel)
+        view.addSubview(messageFrame)
+        return messageFrame
     }
     
     // MARK: - Navigation

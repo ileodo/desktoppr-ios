@@ -81,8 +81,12 @@ class APIWrapper{
                     let apiToken = json["response"]["api_token"].string!
                     successHandler(user,apiToken)
                 }else{
-                    let error = JSON(response.result.value!)
-                    failedHandler(error["error"].string)
+                    if let result = response.result.value {
+                        let error = JSON(result)
+                        failedHandler(error["error"].string)
+                    }else{
+                        failedHandler("No response from server.")
+                    }
                 }
         }
         
@@ -92,12 +96,16 @@ class APIWrapper{
         Alamofire.request(urls.authentication.token.replacingOccurrences(of: "$API_TOKEN", with: apiToken))
             .responseJSON { (response:DataResponse<Any>) in
                 if(response.result.isSuccess){
-                    let json = JSON(response.result.value)
+                    let json = JSON(response.result.value!)
                     let user = User(JSONString:json["response"].rawString()!)!
                     successHandler(user)
                 }else{
-                    let error = JSON(response.result.value)
-                    failedHandler(error["error"].string)
+                    if let result = response.result.value {
+                        let error = JSON(result)
+                        failedHandler(error["error"].string)
+                    }else{
+                        failedHandler("No response from server.")
+                    }
                 }
         }
         
@@ -228,14 +236,18 @@ class APIWrapper{
     func processWallpapers(_ url:String,_ successHandler:@escaping (_ wallpapers:[Wallpaper],_ count:UInt,_ pagination:Pagination) -> Void, _ failedHandler:@escaping (_ error:String?, _ errorDescription:String?) -> Void){
         Alamofire.request(url).responseJSON { (response:DataResponse<Any>) in
             if(response.result.isSuccess){
-                let json = JSON(response.result.value)
+                let json = JSON(response.result.value!)
                 let count:UInt = json["count"].uInt!
                 let pagination = Pagination(JSONString:json["pagination"].rawString()!)!
                 let wallpapers:[Wallpaper] = Array<Wallpaper>(JSONString:json["response"].rawString()!)!
                 successHandler(wallpapers,count,pagination)
             }else{
-                let error = JSON(response.result.value)
-                failedHandler(error["error"].string,error["error_description"].string)
+                if let result = response.result.value {
+                    let error = JSON(result)
+                    failedHandler(error["error"].string,error["error_description"].string)
+                }else{
+                    failedHandler("Network Error",response.result.debugDescription)
+                }
             }
         }
     }
@@ -243,14 +255,18 @@ class APIWrapper{
     func processUsers(_ url:String,_ successHandler:@escaping (_ users:[User],_ count:UInt,_ pagination:Pagination) -> Void, _ failedHandler:@escaping (_ error:String?, _ errorDescription:String?) -> Void){
         Alamofire.request(url).responseJSON { (response:DataResponse<Any>) in
             if(response.result.isSuccess){
-                let json = JSON(response.result.value)
+                let json = JSON(response.result.value!)
                 let count:UInt = json["count"].uInt!
                 let pagination = Pagination(JSONString:json["pagination"].rawString()!)!
                 let wallpapers:[User] = Array<User>(JSONString:json["response"].rawString()!)!
                 successHandler(wallpapers,count,pagination)
             }else{
-                let error = JSON(response.result.value)
-                failedHandler(error["error"].string,error["error_description"].string)
+                if let result = response.result.value {
+                    let error = JSON(result)
+                    failedHandler(error["error"].string,error["error_description"].string)
+                }else{
+                    failedHandler("Network Error",response.result.debugDescription)
+                }
             }
         }
     }
@@ -283,7 +299,7 @@ class APIWrapper{
     
     func processAction(_ url:String,_ method:HTTPMethod, _ successHandler:@escaping ()-> Void,_ failedHandler:@escaping (_ error:String?, _ errorDescription:String?) -> Void){
         Alamofire.request(url,method:method).responseJSON { (response:DataResponse<Any>) in
-            let json = JSON(response.result.value)
+            let json = JSON(response.result.value!)
             if(response.response?.statusCode==200){
                 successHandler()
             }else{

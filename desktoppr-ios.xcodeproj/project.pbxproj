@@ -21,6 +21,7 @@
 		496922101DB224FF008E7E7E /* ApiWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969220F1DB224FF008E7E7E /* ApiWrapper.swift */; };
 		497797491DBA9D9700A1AB87 /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497797481DBA9D9700A1AB87 /* UserInfoCell.xib */; };
 		4977974B1DBAA60900A1AB87 /* UserInfoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977974A1DBAA60900A1AB87 /* UserInfoListController.swift */; };
+		497AE5CB1DC11D0800FE2990 /* UserHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497AE5CA1DC11D0800FE2990 /* UserHeaderView.xib */; };
 		497D057A1DBD393100B69D40 /* ViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D05791DBD393100B69D40 /* ViewPresentable.swift */; };
 		497D057C1DBD3E9100B69D40 /* FollowingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D057B1DBD3E9100B69D40 /* FollowingList.swift */; };
 		49DA41931D8E1CA80016F463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41921D8E1CA80016F463 /* AppDelegate.swift */; };
@@ -84,6 +85,7 @@
 		4969220F1DB224FF008E7E7E /* ApiWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiWrapper.swift; sourceTree = "<group>"; };
 		497797481DBA9D9700A1AB87 /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
 		4977974A1DBAA60900A1AB87 /* UserInfoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoListController.swift; sourceTree = "<group>"; };
+		497AE5CA1DC11D0800FE2990 /* UserHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderView.xib; sourceTree = "<group>"; };
 		497D05791DBD393100B69D40 /* ViewPresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPresentable.swift; sourceTree = "<group>"; };
 		497D057B1DBD3E9100B69D40 /* FollowingList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FollowingList.swift; sourceTree = "<group>"; };
 		49C1943C1DB2376800EB568F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -258,6 +260,7 @@
 				49E68F501DB6C4E400DC8C89 /* HomeViewCell.swift */,
 				49F12A1D1DB6E8A6002229D6 /* HomeViewCell.xib */,
 				49EA3A8B1DBD191500B09B25 /* UserHeaderView.swift */,
+				497AE5CA1DC11D0800FE2990 /* UserHeaderView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -357,7 +360,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = "Tianwei Dong";
 				TargetAttributes = {
 					49DA418E1D8E1CA80016F463 = {
@@ -412,6 +415,7 @@
 			files = (
 				49DA419F1D8E1CA80016F463 /* LaunchScreen.storyboard in Resources */,
 				49F12A201DB80400002229D6 /* WallpaperCollectionViewCell.xib in Resources */,
+				497AE5CB1DC11D0800FE2990 /* UserHeaderView.xib in Resources */,
 				497797491DBA9D9700A1AB87 /* UserInfoCell.xib in Resources */,
 				49F12A1E1DB6E8A6002229D6 /* HomeViewCell.xib in Resources */,
 				49E708E41DBD79C50092EF1C /* Assets.xcassets in Resources */,

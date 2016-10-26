@@ -33,7 +33,7 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
 
         // Do any additional setup after loading the view.
         self.wallpaperCollectionView.register(UINib(nibName: "WallpaperCollectionViewCell",bundle: nil), forCellWithReuseIdentifier: "WallpaperCollectionViewCell")
-        
+        self.wallpaperCollectionView.register(UINib(nibName: "UserHeaderView",bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserHeaderView")
         if username==nil{
             username=Auth.user()?.username
             self.navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: #imageLiteral(resourceName: "TabIconSetting"), style: .done, target: self, action: #selector(UserHomeViewController.goToSetting))
@@ -56,7 +56,6 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
         let loginView = storyBoard.instantiateViewController(withIdentifier: "loginView")
         loginView.modalPresentationStyle = .fullScreen
         Auth.logout()
-        Auth.deleteRemember()
         let alert = UIAlertController(title: "Logout Success", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
         // add an action (button)
@@ -79,29 +78,29 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
         APIWrapper.instance().userInfo(username: username!, successHandler: { (user) in
             self.user = user
         }) { (error, errorDescription) in
-            print(error)
-            print(errorDescription)
+            print(error ?? "Error")
+            print(errorDescription ?? "Some error happened")
         }
         wallpapers.removeAll()
         wallpaperCollectionView.reloadData()
-        loadWallpapers(page: 0)
+        loadWallpapers()
 
         self.refresher.endRefreshing()
     }
     
     
-    func loadWallpapers(page:UInt){
+    func loadWallpapers(page:UInt = 1){
         APIWrapper.instance().getWallpapers(username: username!, page:page, filter:.all, successHandler: { (wallpapers, count, pagination) in
+            self.pagination = pagination
             if(count==0){
-                self.pagination?.next=nil
+                self.pagination?.next = nil
             }else{
                 self.wallpapers += wallpapers
-                self.pagination = pagination
-                self.wallpaperCollectionView.reloadSections(IndexSet.init(integer: 0))
+                self.wallpaperCollectionView?.reloadData()
             }
         }) { (error, errorDescription) in
-            print(error)
-            print(errorDescription)
+            print(error ?? "Error")
+            print(errorDescription ?? "Some error happened")
         }
     }
    
@@ -150,14 +149,18 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
         
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 0.0, height: 166.0)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if(kind == UICollectionElementKindSectionHeader){
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "userHeader", for: indexPath) as! UserHeaderView
+            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserHeaderView", for: indexPath) as! UserHeaderView
             headerView.user=self.user
             headerView.delegate = self
             return headerView
         }else{
-            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "userHeader", for: indexPath) as! UserHeaderView
+            return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "UserHeaderView", for: indexPath) as! UserHeaderView
         }
     }
     
@@ -206,7 +209,6 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
             let userInfoListViewController = segue.destination as! UserInfoListController
             userInfoListViewController.type = UserInfoListController.ListType.Followers
             userInfoListViewController.baseUsername = self.username
-            
         }else if segue.identifier == "showFollowingsList" {
             let userInfoListViewController = segue.destination as! UserInfoListController
             userInfoListViewController.type = UserInfoListController.ListType.Followings

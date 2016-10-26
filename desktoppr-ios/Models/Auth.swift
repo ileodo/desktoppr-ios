@@ -59,6 +59,7 @@ class Auth{
         _user = nil
         _token = nil
         _followingList = nil
+        deleteRemember()
     }
     
     static func followingList() -> FollowingList? {

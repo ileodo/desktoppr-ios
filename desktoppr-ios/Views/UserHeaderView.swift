@@ -34,34 +34,43 @@ class UserHeaderView: UICollectionReusableView {
     var followed: Bool?{
         didSet{
             if followed! {
-                Auth.followingList()?.add(username: (self.user?.username)!)
+                Auth.followingList()?.add(username: (self.user.username)!)
                 followButton.setBackgroundImage(UIImage().makeImageWithColorAndSize(color: UIColor.red, size: followButton.frame.size), for: .normal)
                 followButton.setTitle("Unfollow", for: .normal)
             }else{
-                Auth.followingList()?.remove(username: (self.user?.username)!)
+                Auth.followingList()?.remove(username: (self.user.username)!)
                 followButton.setBackgroundImage(UIImage().makeImageWithColorAndSize(color: UIColor.blue, size: followButton.frame.size), for: .normal)
                 followButton.setTitle("Follow", for: .normal)
             }
         }
     }
     
-    var user:User? {
+    var user:User! {
         didSet{
             if self.user != nil {
                 loadUserLikeCount()
-                self.usernameText.text = self.user?.username
-                self.userInfoText.text = (self.user?.name) ?? "" + " / join @ "+DateTransform.getStringFor((self.user?.created_at!)!)
-                self.wallpaperNoText.text = self.user?.wallpapers_count?.description
-                self.followersNoText.text = self.user?.followers_count?.description
-                self.followingNoText.text = self.user?.following_count?.description
-                if(self.user?.username == Auth.user()?.username){
+                self.usernameText.text = self.user.username! + (self.user.lifetime_member! ? " ☑️" : "")
+                var userInfoStr = [String]()
+                if self.user.name != nil {
+                    userInfoStr.append(self.user.name!)
+                }
+                
+                if self.user.created_at != nil {
+                    userInfoStr.append("join @ "+DateTransform.getStringFor(self.user.created_at!))
+                }
+                
+                self.userInfoText.text = userInfoStr.joined(separator: " / ")
+                self.wallpaperNoText.text = self.user.wallpapers_count?.description
+                self.followersNoText.text = self.user.followers_count?.description
+                self.followingNoText.text = self.user.following_count?.description
+                if(self.user.username == Auth.user()?.username){
                     self.followButton.isHidden = true
                 }else{
                     self.followButton.isHidden = false
-                    self.followed = Auth.followingList()?.contains(username: (self.user?.username)!)
+                    self.followed = Auth.followingList()?.contains(username: (self.user.username)!)
                 }
-                if(oldValue == nil || self.user!.avatar_url != oldValue!.avatar_url){
-                    self.user?.loadAvatarTo(self.avatarImage,finishCallback: {(view)->Void in
+                if(oldValue == nil || self.user.avatar_url != oldValue!.avatar_url){
+                    self.user.loadAvatarTo(self.avatarImage,finishCallback: {(view)->Void in
                         view.layer.cornerRadius = self.avatarImage.frame.height/2
                     })
                 }
@@ -92,11 +101,11 @@ class UserHeaderView: UICollectionReusableView {
     }
     
     func loadUserLikeCount(){
-        APIWrapper.instance().getLikesWallpaper(username: self.user!.username!, successHandler: { (_, count, _) in
+        APIWrapper.instance().getLikesWallpaper(username: self.user.username!, successHandler: { (_, count, _) in
             self.likesNoText.text = count.description
         }) { (error, errorDescription) in
-            print(error)
-            print(errorDescription)
+            print(error ?? "Error")
+            print(errorDescription ?? "Some error happened")
         }
         
     }
@@ -104,7 +113,7 @@ class UserHeaderView: UICollectionReusableView {
     
     // MARK: - Logic:Actions
     @IBAction func toggleFollowShip(_ sender: UIButton) {
-        sender.isUserInteractionEnabled = false
+        sender.isEnabled = false
         let fun : actionApiProcesser!
         if self.followed! {
             fun = APIWrapper.instance().unfollowUser
@@ -114,9 +123,9 @@ class UserHeaderView: UICollectionReusableView {
         }
         actionHelper(apiAction: fun, successHandler: {
             self.followed = !self.followed!
-            sender.isUserInteractionEnabled = true
+            sender.isEnabled = true
             }, failedHandler: {
-                sender.isUserInteractionEnabled = true
+                sender.isEnabled = true
         })
     }
     
@@ -124,7 +133,7 @@ class UserHeaderView: UICollectionReusableView {
     typealias actionApiProcesser = ((_ apiToken:String,_ username:String,_ successHandler:@escaping ()-> Void,_ failedHandler:@escaping (_ error:String?, _ errorDescription:String?) -> Void) -> Void)
     
     func actionHelper(apiAction:actionApiProcesser, successHandler:@escaping ()->Void,failedHandler: @escaping () -> Void){
-        apiAction(Auth.apiToken()!, (self.user?.username)!, { (ret) in
+        apiAction(Auth.apiToken()!, (self.user.username)!, { (ret) in
             successHandler()
             }, { (error, errorDescription) in
                 let alert = UIAlertController(title: error, message: errorDescription, preferredStyle: .alert)

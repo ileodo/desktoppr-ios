@@ -53,8 +53,9 @@ class HomeViewCell: UICollectionViewCell {
                 uploadTimeText.text="uploaded @ "+DateTransform.getStringFor(wallpaper.created_at!)
                 if(wallpaper.uploader != nil){
                     APIWrapper.instance().userInfo(username: wallpaper.uploader!, successHandler: { (user:User) in
-                        user.loadAvatarTo(self.userAvatarView)
-                        self.userAvatarView.layer.cornerRadius = self.userAvatarView.frame.height/2
+                        user.loadAvatarTo(self.userAvatarView,finishCallback: {(view)->Void in
+                            self.userAvatarView.layer.cornerRadius = self.userAvatarView.frame.height/2
+                        })
                     })
                     APIWrapper.instance().doesUserLike(username: Auth.user()!.username!, wallpaperId: wallpaper.id!, successHandler: { (isLike) in
                         self.isLike = isLike
@@ -85,7 +86,7 @@ class HomeViewCell: UICollectionViewCell {
 
 
     @IBAction func flagWallpaper(_ sender: UIButton) {
-        sender.isUserInteractionEnabled = false
+        sender.isEnabled = false
         let optionMenu = UIAlertController(title: nil, message: "Choose Flag", preferredStyle: .actionSheet)
         
         let flagSafeAction = UIAlertAction(title: "Safe", style: .default, handler: {
@@ -93,9 +94,9 @@ class HomeViewCell: UICollectionViewCell {
             let fun = APIWrapper.instance().flagSafeWallpaper
                 
             self.actionHelper(apiAction: fun, successHandler: {
-                    sender.isUserInteractionEnabled = true
+                    sender.isEnabled = true
                 }, failedHandler: {
-                    sender.isUserInteractionEnabled = true
+                    sender.isEnabled = true
             })
         })
         
@@ -104,9 +105,9 @@ class HomeViewCell: UICollectionViewCell {
             let fun = APIWrapper.instance().flagNotSafeWallpaper
             
             self.actionHelper(apiAction: fun, successHandler: {
-                sender.isUserInteractionEnabled = true
+                sender.isEnabled = true
                 }, failedHandler: {
-                    sender.isUserInteractionEnabled = true
+                    sender.isEnabled = true
             })
         })
         
@@ -115,15 +116,15 @@ class HomeViewCell: UICollectionViewCell {
             let fun = APIWrapper.instance().flagDeletionWallpaper
             
             self.actionHelper(apiAction: fun, successHandler: {
-                sender.isUserInteractionEnabled = true
+                sender.isEnabled = true
                 }, failedHandler: {
-                    sender.isUserInteractionEnabled = true
+                    sender.isEnabled = true
             })
         })
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: {
             (alert: UIAlertAction!) -> Void in
-            sender.isUserInteractionEnabled = true
+            sender.isEnabled = true
         })
         
         

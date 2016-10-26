@@ -29,7 +29,7 @@ class SettingViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         if(indexPath.section==1 && indexPath.row==0){
-            UIApplication.shared.openURL(URL(string: "http://ileodo.com")!)
+            UIApplication.shared.open(URL(string: "http://ileodo.com")!, options: [:], completionHandler: nil)
         }
     }
     
