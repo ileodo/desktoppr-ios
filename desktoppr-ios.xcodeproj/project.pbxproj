@@ -24,7 +24,6 @@
 		497AE5CB1DC11D0800FE2990 /* UserHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497AE5CA1DC11D0800FE2990 /* UserHeaderView.xib */; };
 		497D057A1DBD393100B69D40 /* ViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D05791DBD393100B69D40 /* ViewPresentable.swift */; };
 		497D057C1DBD3E9100B69D40 /* FollowingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D057B1DBD3E9100B69D40 /* FollowingList.swift */; };
-		498942DA1DC14A3B007D896F /* CHANGELOG.md in Sources */ = {isa = PBXBuildFile; fileRef = 498942D81DC14A3B007D896F /* CHANGELOG.md */; };
 		498942DB1DC14A3B007D896F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 498942D91DC14A3B007D896F /* LICENSE */; };
 		49DA41931D8E1CA80016F463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41921D8E1CA80016F463 /* AppDelegate.swift */; };
 		49DA41951D8E1CA80016F463 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41941D8E1CA80016F463 /* ExploreViewController.swift */; };
@@ -182,13 +181,13 @@
 			children = (
 				498942D81DC14A3B007D896F /* CHANGELOG.md */,
 				498942D91DC14A3B007D896F /* LICENSE */,
-				49E708E31DBD79C50092EF1C /* Assets.xcassets */,
+				49DA41C21D8E270F0016F463 /* README.md */,
 				49C1943C1DB2376800EB568F /* .gitignore */,
+				49E708E31DBD79C50092EF1C /* Assets.xcassets */,
 				49DA41911D8E1CA80016F463 /* desktoppr-ios */,
 				49DA41A81D8E1CA80016F463 /* desktoppr-iosTests */,
 				49DA41B31D8E1CA80016F463 /* desktoppr-iosUITests */,
 				49DA41901D8E1CA80016F463 /* Products */,
-				49DA41C21D8E270F0016F463 /* README.md */,
 				CB81375C08DCF82A1C9C39AF /* Pods */,
 				53B72440EC3DDF4C719E0AF4 /* Frameworks */,
 			);
@@ -598,7 +597,6 @@
 				49E68F511DB6C4E400DC8C89 /* HomeViewCell.swift in Sources */,
 				4932FE171DBC2D5600367B11 /* SettingViewController.swift in Sources */,
 				49DA41931D8E1CA80016F463 /* AppDelegate.swift in Sources */,
-				498942DA1DC14A3B007D896F /* CHANGELOG.md in Sources */,
 				49DA41951D8E1CA80016F463 /* ExploreViewController.swift in Sources */,
 				496922081DAEC945008E7E7E /* GeneralCollectionViewController.swift in Sources */,
 				490028521DB24DF60094A40A /* User.swift in Sources */,
