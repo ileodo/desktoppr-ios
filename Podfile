@@ -8,6 +8,7 @@ target 'desktoppr-ios' do
   pod 'AlamofireObjectMapper', '~> 4.0'
   pod 'SwiftyJSON', '3.0.0'
   pod 'SKPhotoBrowser', :git => 'https://github.com/suzuki-0000/SKPhotoBrowser.git', :branch => 'swift3'
+  pod 'KeychainAccess'
 #  pod 'XLPagerTabStrip'
   
   # Pods for desktoppr-ios

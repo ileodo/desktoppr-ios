@@ -564,7 +564,7 @@ Copyright @ 2016</string>
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="loginClicked:" destination="yx8-AI-9h0" eventType="touchUpInside" id="QA8-ch-Fak"/>
+                                            <action selector="loginAction:" destination="yx8-AI-9h0" eventType="touchUpInside" id="FSz-9r-jsd"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7Z-pr-MNH">
@@ -573,7 +573,6 @@ Copyright @ 2016</string>
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="loginClicked:" destination="yx8-AI-9h0" eventType="touchUpInside" id="7HS-he-OiG"/>
                                             <action selector="signUpClick:" destination="yx8-AI-9h0" eventType="touchUpInside" id="tZe-GV-rB0"/>
                                         </connections>
                                     </button>
@@ -610,7 +609,9 @@ Copyright @ 2016</string>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
+                        <outlet property="loginButton" destination="IQi-DK-HKS" id="ekT-vq-L0B"/>
                         <outlet property="passwordText" destination="f0Y-nC-fiM" id="jQr-fN-nce"/>
+                        <outlet property="signupButton" destination="A7Z-pr-MNH" id="tid-3I-2iA"/>
                         <outlet property="usernameText" destination="BEw-kW-6qw" id="fZb-wK-gcL"/>
                         <segue destination="49e-Tb-3d3" kind="show" identifier="entry" id="AUm-eD-efn"/>
                     </connections>

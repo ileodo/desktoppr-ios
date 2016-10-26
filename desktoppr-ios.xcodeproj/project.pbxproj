@@ -77,6 +77,7 @@
 		4932FE161DBC2D5600367B11 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		4932FE1A1DBC36E200367B11 /* TabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		4937454F1DBAF75C0096543F /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
+		4961B0A01DC022D700AAE87B /* desktoppr-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "desktoppr-ios.entitlements"; sourceTree = "<group>"; };
 		496922071DAEC945008E7E7E /* GeneralCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralCollectionViewController.swift; sourceTree = "<group>"; };
 		496922091DAED78A008E7E7E /* WallpaperCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallpaperCollectionViewCell.swift; sourceTree = "<group>"; };
 		4969220D1DB02FDA008E7E7E /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
@@ -198,6 +199,7 @@
 		49DA41911D8E1CA80016F463 /* desktoppr-ios */ = {
 			isa = PBXGroup;
 			children = (
+				4961B0A01DC022D700AAE87B /* desktoppr-ios.entitlements */,
 				49E68F4F1DB6C40400DC8C89 /* Views */,
 				49E68F4C1DB4357E00DC8C89 /* Controllers */,
 				490028571DB2BC610094A40A /* Utils */,
@@ -363,6 +365,11 @@
 						DevelopmentTeam = RZFK5B7Z2Y;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					49DA41A41D8E1CA80016F463 = {
 						CreatedOnToolsVersion = 8.0;
@@ -752,6 +759,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "desktoppr-ios/desktoppr-ios.entitlements";
 				DEVELOPMENT_TEAM = RZFK5B7Z2Y;
 				INFOPLIST_FILE = "desktoppr-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -768,6 +776,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "desktoppr-ios/desktoppr-ios.entitlements";
 				DEVELOPMENT_TEAM = RZFK5B7Z2Y;
 				INFOPLIST_FILE = "desktoppr-ios/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

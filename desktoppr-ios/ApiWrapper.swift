@@ -73,7 +73,7 @@ class APIWrapper{
     // MARK: authentication
     
     func basicAuth(_ credential:(user:String,passwd:String),_ successHandler:@escaping (_ user: User,_ apiToken:String)-> Void = {_ in },_ failedHandler:@escaping (_ error:String?) -> Void = {_ in }) {
-        Alamofire.request(urls.authentication.basic).authenticate(user: credential.user, password: credential.passwd)
+        Alamofire.request(urls.authentication.basic).authenticate(user: credential.user, password: credential.passwd,persistence: .none)
             .responseJSON { (response:DataResponse<Any>) in
                 if(response.response?.statusCode==200){
                     let json = JSON(response.result.value!)

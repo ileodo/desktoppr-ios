@@ -56,7 +56,7 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
         let loginView = storyBoard.instantiateViewController(withIdentifier: "loginView")
         loginView.modalPresentationStyle = .fullScreen
         Auth.logout()
-        
+        Auth.deleteRemember()
         let alert = UIAlertController(title: "Logout Success", message: "", preferredStyle: UIAlertControllerStyle.alert)
         
         // add an action (button)

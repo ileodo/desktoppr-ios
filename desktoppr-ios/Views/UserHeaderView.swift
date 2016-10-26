@@ -31,7 +31,7 @@ class UserHeaderView: UICollectionReusableView {
     
     @IBOutlet weak var followButton: UIButton!
     
-    var followed: Bool!{
+    var followed: Bool?{
         didSet{
             if followed! {
                 Auth.followingList()?.add(username: (self.user?.username)!)
