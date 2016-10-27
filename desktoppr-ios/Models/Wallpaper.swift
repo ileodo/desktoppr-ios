@@ -129,5 +129,9 @@ class Wallpaper: Mappable{
             return nil
         }
     }
+    
+    func SKPhotoImageUrl() -> String {
+        return (self.preview?.url)!
+    }
 }
 

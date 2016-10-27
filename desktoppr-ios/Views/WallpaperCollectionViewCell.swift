@@ -32,6 +32,6 @@ class WallpaperCollectionViewCell: UICollectionViewCell {
     }
     
     func showWallpaperDetails(_ sender: UITapGestureRecognizer) {
-        self.delegate.callSegueFromCell(cell: self,identifier: "showDetails")
+        self.delegate.showWallpaperView(cell: self, data: nil)
     }
 }

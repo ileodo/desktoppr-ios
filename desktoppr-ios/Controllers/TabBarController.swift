@@ -12,14 +12,10 @@ class TabBarController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-
-        
         for item in self.tabBar.items as [UITabBarItem]! {
             if let image = item.image {
                 item.image = image.imageWithColor(tintColor: UIColor.black).withRenderingMode(.alwaysOriginal)
             }
-            
             
             // Sets the default color of the icon of the selected UITabBarItem and Title
             UITabBar.appearance().tintColor = UIColor.white
@@ -27,15 +23,10 @@ class TabBarController: UITabBarController {
             // Sets the default color of the background of the UITabBar
             UITabBar.appearance().barTintColor = UIColor(red:1.00, green:1.00, blue:1.00, alpha:1.00)
             
-            // Sets the background color of the selected UITabBarItem (using and plain colored UIImage with the width = 1/5 of the tabBar (if you have 5 items) and the height of the tabBar)
-            
-            
+            UITabBar.appearance().selectionIndicatorImage = UIImage().makeImageWithColorAndSize(color: UIColor.white, size: CGSize(width:tabBar.frame.width/3, height:tabBar.frame.height))
             UITabBar.appearance().selectionIndicatorImage = UIImage().makeImageWithColorAndSize(color: UIColor(red:0.16, green:0.16, blue:0.21, alpha:1.00), size: CGSize(width:tabBar.frame.width/3, height:tabBar.frame.height))
         }
-        // Do any additional setup after loading the view.
-        
     }
-
 
     /*
     // MARK: - Navigation

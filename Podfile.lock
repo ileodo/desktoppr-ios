@@ -22,7 +22,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   SKPhotoBrowser:
-    :commit: 4c1520b907ec7c8de183a7ab1c153553fb6b11c3
+    :commit: 5ae13c07057f480b421f9782d7addf4b6926f9b1
     :git: https://github.com/ileodo/SKPhotoBrowser.git
 
 SPEC CHECKSUMS:
@@ -35,4 +35,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 951946817e12cca21a9ff2210146699375ad3739
 
-COCOAPODS: 1.1.1
+COCOAPODS: 1.1.0.rc.3
