@@ -1,9 +1,9 @@
-# Desktoppr-iOS
-
 [![GitHub issues](https://img.shields.io/github/issues/ileodo/desktoppr-ios.svg)](https://github.com/ileodo/desktoppr-ios/issues)
 [![GitHub forks](https://img.shields.io/github/forks/ileodo/desktoppr-ios.svg)](https://github.com/ileodo/desktoppr-ios/network)
 [![GitHub stars](https://img.shields.io/github/stars/ileodo/desktoppr-ios.svg)](https://github.com/ileodo/desktoppr-ios/stargazers)
 [![GitHub license](https://img.shields.io/badge/license-Apache%202-blue.svg)](https://raw.githubusercontent.com/ileodo/desktoppr-ios/master/LICENSE)
+
+# Desktoppr-iOS
 
 ## Screen Shots
 
@@ -27,13 +27,10 @@ This project is an iOS app for it based on its official [API](https://www.deskto
 - Like/Sync/Flag wallpapers
 - Follow/Unfollow Users
 
-## Know Bugs
-- Privilege on saving image into photo album
-- Signup WebView zoomable
 
 ## Todo
 - Signup View
-- More powerful wallpaper details view
+
 
 ## Contribution
 This project is open for contributing. Please fork and create PR to contribute.
