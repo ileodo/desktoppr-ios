@@ -1,114 +1,95 @@
 //
-//  GalleryDisplayViewController.swift
+//  WallpaperViewController.swift
 //  desktoppr-ios
 //
-//  Created by Tianwei Dong on 13/10/2016.
+//  Created by Tianwei Dong on 27/10/2016.
 //  Copyright © 2016 Tianwei Dong. All rights reserved.
 //
 
 import UIKit
+import SKPhotoBrowser
 
-class DetailsViewController: UIViewController, UIScrollViewDelegate {
 
-    // MARK: - Properties:UI
-    @IBOutlet weak var image: UIImageView!
-    @IBOutlet weak var scrollView: UIScrollView!
-    
-    // MARK: - Properties:Data
-    var wallpapers : [Wallpaper]?
-    var currentIndex : Int?
-    
+class WallpaperViewController: SKPhotoBrowser, SKPhotoBrowserDelegate {
+    var wallpapers:[Wallpaper] = []
     var isLike: Bool?
-    
     var hasSync: Bool?
+    var optionButton: UIImageView!
+    var showUploaderDelegate: ShowUploaderDelegator?
     
-    // MARK: - Logic:View
+    public convenience init(photos: [SKPhotoProtocol], wallpapers:[Wallpaper]) {
+        self.init(photos: photos)
+        self.wallpapers = wallpapers
+        self.delegate = self
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.scrollView.minimumZoomScale = 1.0;
-        self.scrollView.maximumZoomScale = 6.0;
-        self.scrollView.contentSize = self.image.frame.size;
-        self.scrollView.delegate = self;
-        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(DetailsViewController.swipe(_:)))
-        
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(DetailsViewController.swipe(_:)))
-       
-        swipeLeft.direction = .left
-        swipeRight.direction = .right
-        
-        image.addGestureRecognizer(swipeLeft)
-        image.addGestureRecognizer(swipeRight)
-        
-        viewImage()
+        let screenSize: CGRect = UIScreen.main.bounds
+        optionButton = UIImageView(frame: CGRect(x: screenSize.maxX-45, y: 17.5, width: 30, height: 20))
+        optionButton.contentMode = .scaleAspectFill
+        optionButton.image = #imageLiteral(resourceName: "MoreIcon").imageWithColor(tintColor: UIColor.white)
+        optionButton.isUserInteractionEnabled = true
+        optionButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(moreOptions(_:))))
+        self.view.addSubview(optionButton)
+
+        // Do any additional setup after loading the view.
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
     
     func currentWallpaper() -> Wallpaper{
-        return wallpapers![currentIndex!]
+        return wallpapers[getCurrentPageIndex()]
     }
-    
-    func viewImage(){
+
+
+    // MARK: - SKPhotoBrowserDelegate
+    func didShowPhotoAtIndex(_ index: Int) {
         var flag = 0
-        self.navigationItem.rightBarButtonItem?.isEnabled = false
-        currentWallpaper().loadImageTo(image,size: .preview)
+        optionButton!.isUserInteractionEnabled = false
         APIWrapper.instance().doesUserLike(username: Auth.user()!.username!, wallpaperId: currentWallpaper().id!, successHandler: { (isLike) in
-                self.isLike = isLike
-                flag = flag + 1
-                if(flag==2){
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                }
+            self.isLike = isLike
+            flag = flag + 1
+            if(flag==2){
+                self.optionButton!.isUserInteractionEnabled = true
+            }
             },failedHandler: {_,_ in
                 self.isLike = nil
                 flag = flag + 1
                 if(flag==2){
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    self.optionButton!.isUserInteractionEnabled = true
                 }
         })
         APIWrapper.instance().doesUserSync(username: Auth.user()!.username!, wallpaperId: currentWallpaper().id!, successHandler: { (hasSync) in
-                self.hasSync = hasSync
-                flag = flag + 1
-                if(flag==2){
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
-                }
+            self.hasSync = hasSync
+            flag = flag + 1
+            if(flag==2){
+                self.optionButton!.isUserInteractionEnabled = true
+            }
             },failedHandler: {_,_ in
                 self.hasSync = nil
                 flag = flag + 1
                 if(flag==2){
-                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    self.optionButton!.isUserInteractionEnabled = true
                 }
         })
-    }
-    
-    // MARK: - Logic:Actions
-    func swipe(_ swipe:UISwipeGestureRecognizer){
-        switch swipe.direction {
-        case UISwipeGestureRecognizerDirection.left:
-            if (currentIndex!<(wallpapers!.count)-1){
-                currentIndex = currentIndex! + 1
-                viewImage()
-            }
-            break;
-        case UISwipeGestureRecognizerDirection.right:
-            if (currentIndex!>0){
-                currentIndex = currentIndex! - 1
-                viewImage()
-            }
-            break;
-        default:
-            break;
-        }
-    }
-    
 
-    @IBAction func moreOptions(_ sender: UIBarButtonItem) {
+    }
+    
+    func moreOptions(_ sender: UIBarButtonItem) {
         let optionMenu = UIAlertController(title: nil, message: "Choose Options", preferredStyle: .actionSheet)
-        
-        let viewUploaderAction = UIAlertAction(title: "View Uploader", style: .default, handler: {
-            (alert: UIAlertAction!) -> Void in
-            self.performSegue(withIdentifier: "showUser", sender: sender)
-        })
-        
-        if(currentWallpaper().uploader != Auth.user()?.username){
-            optionMenu.addAction(viewUploaderAction)
+
+        if showUploaderDelegate != nil, let uploader = currentWallpaper().uploader {
+            if(uploader != Auth.user()?.username){
+                let viewUploaderAction = UIAlertAction(title: "View Uploader:"+uploader, style: .default, handler: {
+                    (alert: UIAlertAction!) -> Void in
+                    self.showUploaderDelegate?.showUploaderView(uploader)
+                    self.dismiss(animated: true, completion: nil)
+                })
+                optionMenu.addAction(viewUploaderAction)
+            }
         }
         
         if isLike != nil {
@@ -147,7 +128,7 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         self.present(optionMenu, animated: true, completion: nil)
         
     }
-    
+
     func showFlagOptions(){
         let optionMenu = UIAlertController(title: nil, message: "Choose Flag", preferredStyle: .actionSheet)
         
@@ -198,23 +179,14 @@ class DetailsViewController: UIViewController, UIScrollViewDelegate {
         })
         
     }
-    
-    // MARK: - UIScrollViewDelegate
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.image
-    }
-    
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        
-    }
-    
-
+    /*
     // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showUser"{
-            let userHomeViewController = segue.destination as! UserHomeViewController
-            userHomeViewController.username = currentWallpaper().uploader
-        }
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
     }
+    */
 
 }

@@ -17,14 +17,15 @@
 		493745501DBAF75C0096543F /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4937454F1DBAF75C0096543F /* Auth.swift */; };
 		496922081DAEC945008E7E7E /* GeneralCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496922071DAEC945008E7E7E /* GeneralCollectionViewController.swift */; };
 		4969220A1DAED78A008E7E7E /* WallpaperCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 496922091DAED78A008E7E7E /* WallpaperCollectionViewCell.swift */; };
-		4969220E1DB02FDA008E7E7E /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969220D1DB02FDA008E7E7E /* DetailsViewController.swift */; };
 		496922101DB224FF008E7E7E /* ApiWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4969220F1DB224FF008E7E7E /* ApiWrapper.swift */; };
+		4974827A1DC275DD00A14D96 /* ShowUploaderDelegator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497482791DC275DD00A14D96 /* ShowUploaderDelegator.swift */; };
 		497797491DBA9D9700A1AB87 /* UserInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497797481DBA9D9700A1AB87 /* UserInfoCell.xib */; };
 		4977974B1DBAA60900A1AB87 /* UserInfoListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4977974A1DBAA60900A1AB87 /* UserInfoListController.swift */; };
 		497AE5CB1DC11D0800FE2990 /* UserHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 497AE5CA1DC11D0800FE2990 /* UserHeaderView.xib */; };
 		497D057A1DBD393100B69D40 /* ViewPresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D05791DBD393100B69D40 /* ViewPresentable.swift */; };
 		497D057C1DBD3E9100B69D40 /* FollowingList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D057B1DBD3E9100B69D40 /* FollowingList.swift */; };
 		498942DB1DC14A3B007D896F /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 498942D91DC14A3B007D896F /* LICENSE */; };
+		49D643831DC2004E00ED4C3D /* WallpaperViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49D643821DC2004E00ED4C3D /* WallpaperViewController.swift */; };
 		49DA41931D8E1CA80016F463 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41921D8E1CA80016F463 /* AppDelegate.swift */; };
 		49DA41951D8E1CA80016F463 /* ExploreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41941D8E1CA80016F463 /* ExploreViewController.swift */; };
 		49DA41971D8E1CA80016F463 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41961D8E1CA80016F463 /* HomeViewController.swift */; };
@@ -82,8 +83,8 @@
 		4961B0A01DC022D700AAE87B /* desktoppr-ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "desktoppr-ios.entitlements"; sourceTree = "<group>"; };
 		496922071DAEC945008E7E7E /* GeneralCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneralCollectionViewController.swift; sourceTree = "<group>"; };
 		496922091DAED78A008E7E7E /* WallpaperCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallpaperCollectionViewCell.swift; sourceTree = "<group>"; };
-		4969220D1DB02FDA008E7E7E /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		4969220F1DB224FF008E7E7E /* ApiWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiWrapper.swift; sourceTree = "<group>"; };
+		497482791DC275DD00A14D96 /* ShowUploaderDelegator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowUploaderDelegator.swift; sourceTree = "<group>"; };
 		497797481DBA9D9700A1AB87 /* UserInfoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserInfoCell.xib; sourceTree = "<group>"; };
 		4977974A1DBAA60900A1AB87 /* UserInfoListController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoListController.swift; sourceTree = "<group>"; };
 		497AE5CA1DC11D0800FE2990 /* UserHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UserHeaderView.xib; sourceTree = "<group>"; };
@@ -92,6 +93,7 @@
 		498942D81DC14A3B007D896F /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		498942D91DC14A3B007D896F /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		49C1943C1DB2376800EB568F /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		49D643821DC2004E00ED4C3D /* WallpaperViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WallpaperViewController.swift; sourceTree = "<group>"; };
 		49DA418F1D8E1CA80016F463 /* desktoppr-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "desktoppr-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		49DA41921D8E1CA80016F463 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49DA41941D8E1CA80016F463 /* ExploreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreViewController.swift; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				497D05791DBD393100B69D40 /* ViewPresentable.swift */,
 				490028581DB2BC8E0094A40A /* DateTransform.swift */,
 				497D057B1DBD3E9100B69D40 /* FollowingList.swift */,
+				497482791DC275DD00A14D96 /* ShowUploaderDelegator.swift */,
 			);
 			name = Utils;
 			path = Utilis;
@@ -180,8 +183,8 @@
 			isa = PBXGroup;
 			children = (
 				498942D81DC14A3B007D896F /* CHANGELOG.md */,
-				498942D91DC14A3B007D896F /* LICENSE */,
 				49DA41C21D8E270F0016F463 /* README.md */,
+				498942D91DC14A3B007D896F /* LICENSE */,
 				49C1943C1DB2376800EB568F /* .gitignore */,
 				49E708E31DBD79C50092EF1C /* Assets.xcassets */,
 				49DA41911D8E1CA80016F463 /* desktoppr-ios */,
@@ -244,13 +247,13 @@
 			children = (
 				49DA41941D8E1CA80016F463 /* ExploreViewController.swift */,
 				49DA41961D8E1CA80016F463 /* HomeViewController.swift */,
-				4969220D1DB02FDA008E7E7E /* DetailsViewController.swift */,
 				496922071DAEC945008E7E7E /* GeneralCollectionViewController.swift */,
 				49E68F4D1DB6A63400DC8C89 /* LoginViewController.swift */,
 				49F12A211DB80843002229D6 /* UserHomeViewController.swift */,
 				4977974A1DBAA60900A1AB87 /* UserInfoListController.swift */,
 				4932FE161DBC2D5600367B11 /* SettingViewController.swift */,
 				4932FE1A1DBC36E200367B11 /* TabBarController.swift */,
+				49D643821DC2004E00ED4C3D /* WallpaperViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -365,7 +368,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0800;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Tianwei Dong";
 				TargetAttributes = {
 					49DA418E1D8E1CA80016F463 = {
@@ -599,6 +602,7 @@
 				49DA41931D8E1CA80016F463 /* AppDelegate.swift in Sources */,
 				49DA41951D8E1CA80016F463 /* ExploreViewController.swift in Sources */,
 				496922081DAEC945008E7E7E /* GeneralCollectionViewController.swift in Sources */,
+				49D643831DC2004E00ED4C3D /* WallpaperViewController.swift in Sources */,
 				490028521DB24DF60094A40A /* User.swift in Sources */,
 				490028591DB2BC8E0094A40A /* DateTransform.swift in Sources */,
 				49F12A241DB80C0A002229D6 /* HomeCellDelegator.swift in Sources */,
@@ -611,8 +615,8 @@
 				49EA3A8D1DBD191500B09B25 /* UserHeaderView.swift in Sources */,
 				49E68F4E1DB6A63400DC8C89 /* LoginViewController.swift in Sources */,
 				49EA3A901DBD1AAB00B09B25 /* UserHeaderViewDelegator.swift in Sources */,
+				4974827A1DC275DD00A14D96 /* ShowUploaderDelegator.swift in Sources */,
 				49F12A221DB80843002229D6 /* UserHomeViewController.swift in Sources */,
-				4969220E1DB02FDA008E7E7E /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

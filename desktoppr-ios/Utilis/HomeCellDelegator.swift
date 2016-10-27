@@ -9,5 +9,6 @@
 import UIKit
 
 protocol HomeCellDelegator {
+    func showWallpaperView(cell: HomeViewCell, data: Any?)
     func callSegueFromCell(cell: HomeViewCell, identifier: String)
 }

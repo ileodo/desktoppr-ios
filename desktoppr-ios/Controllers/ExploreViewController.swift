@@ -10,7 +10,7 @@ import UIKit
 
 import SKPhotoBrowser
 
-class ExploreViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, WallpaperCellDelegator {
+class ExploreViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout, WallpaperCellDelegator, ShowUploaderDelegator {
     
     // MARK: - Properties:Data
     static let countOfRandomWallpapers = 18
@@ -35,6 +35,10 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
         randomWallpaper()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView?.collectionViewLayout.invalidateLayout()
+    }
     
     // MARK: - Logic:Actions
     @IBAction func random(_ sender: AnyObject) {
@@ -123,7 +127,9 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
     // MARK: - UICollectionViewDelegateFlowLayout
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
-    fileprivate let itemsPerRow: CGFloat = 3
+    fileprivate func itemsPerRow() -> CGFloat{
+        return view.frame.height>view.frame.width ? 3.0 : 6.0
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
@@ -140,27 +146,40 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let paddingSpace = sectionInsets.left * (itemsPerRow() + 1)
         let availableWidth = collectionView.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
+        let widthPerItem = availableWidth / itemsPerRow()
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
     
-    //MARK: - WallpaperCellDelegator
+
     
-    func callSegueFromCell(cell: WallpaperCollectionViewCell, identifier: String) {
+    
+    // MARK: - WallpaperCellDelegator
+    
+    func showWallpaperView(cell: WallpaperCollectionViewCell, data: Any?) {
+        let indexPath = collectionView?.indexPath(for: cell)!
+        
         var images = [SKPhoto]()
         for wallpaper in wallpapers{
-            let photo = SKPhoto.photoWithImageURL((wallpaper.preview?.url!)!)
+            let photo = SKPhoto.photoWithImageURL((wallpaper.preview?.url)!)
             photo.shouldCachePhotoURLImage = true
-            
+            if let uploader = wallpaper.uploader {
+                photo.caption = "upload by " + uploader + " @ " + DateTransform.getStringFor(wallpaper.created_at!)
+            }
             images.append(photo)
         }
         
-        let browser = SKPhotoBrowser(photos: images)
-        browser.initializePageIndex((collectionView?.indexPath(for: cell)?.row)!)
+        let browser = WallpaperViewController(photos: images, wallpapers:wallpapers)
+        browser.showUploaderDelegate = self
+        browser.initializePageIndex((indexPath?.row)!)
         present(browser, animated: true, completion: {})
+    }
+    
+    // MARK: - ShowUploaderDelegator
+    func showUploaderView(_ uploader: String) {
+        self.performSegue(withIdentifier: "showUser", sender: uploader)
     }
     
     // MARK: - Navigation
@@ -170,7 +189,6 @@ class ExploreViewController: UICollectionViewController, UICollectionViewDelegat
             let userHomeViewControlle = segue.destination as? UserHomeViewController
             userHomeViewControlle?.username=(sender as! String)
         }
-        
     }
     
 }

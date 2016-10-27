@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 
-class HomeViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout, HomeCellDelegator, ViewPresentable {
+class HomeViewController: UICollectionViewController,UICollectionViewDelegateFlowLayout, HomeCellDelegator, ViewPresentable, ShowUploaderDelegator {
 
     // MARK: - Properties:Data
     var wallpapers=[Wallpaper]()
@@ -27,6 +28,11 @@ class HomeViewController: UICollectionViewController,UICollectionViewDelegateFlo
         self.collectionView!.addSubview(refresher)
         refreshHandler()
         
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        collectionView?.collectionViewLayout.invalidateLayout()
     }
 
 
@@ -109,10 +115,33 @@ class HomeViewController: UICollectionViewController,UICollectionViewDelegateFlo
     }
     
     // MARK: - HomeCellDelegator
-    
     func callSegueFromCell(cell: HomeViewCell, identifier: String) {
-        self.performSegue(withIdentifier: identifier, sender:cell )
+        self.performSegue(withIdentifier: identifier, sender: cell)
+    }
+    
+    func showWallpaperView(cell: HomeViewCell, data: Any?) {
+        let indexPath = collectionView?.indexPath(for: cell)!
         
+        var images = [SKPhoto]()
+        for wallpaper in wallpapers{
+            let photo = SKPhoto.photoWithImageURL((wallpaper.preview?.url)!)
+            photo.shouldCachePhotoURLImage = true
+            if let uploader = wallpaper.uploader {
+                photo.caption = "upload by " + uploader + " @ " + DateTransform.getStringFor(wallpaper.created_at!)
+            }
+            images.append(photo)
+        }
+        
+        let browser = WallpaperViewController(photos: images, wallpapers:wallpapers)
+        browser.showUploaderDelegate = self
+        browser.initializePageIndex((indexPath?.row)!)
+        present(browser, animated: true, completion: {})
+        
+    }
+    
+    // MARK: - ShowUploaderDelegator
+    func showUploaderView(_ uploader: String) {
+        self.performSegue(withIdentifier: "showUser", sender: uploader)
     }
     
     // MARK: - ViewPresentable
@@ -123,20 +152,14 @@ class HomeViewController: UICollectionViewController,UICollectionViewDelegateFlo
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetails" {
-            let detailsViewController = segue.destination as! DetailsViewController
-            if let selectedCell = sender as? HomeViewCell {
-                let indexPath = collectionView?.indexPath(for: selectedCell)!
-                let selectedWallpaper = wallpapers[(indexPath?.row)!]
-                detailsViewController.wallpapers = [selectedWallpaper]
-                detailsViewController.currentIndex = 0
-            }
-        }else if segue.identifier == "showUser" {
+        if segue.identifier == "showUser" {
             let userHomeViewController = segue.destination as! UserHomeViewController
             if let selectedCell = sender as? HomeViewCell {
                 let indexPath = collectionView?.indexPath(for: selectedCell)!
                 let selectedUsername = wallpapers[(indexPath?.row)!].uploader
                 userHomeViewController.username = selectedUsername
+            }else if let uploader = sender as? String{
+                userHomeViewController.username = uploader
             }
         }
     }

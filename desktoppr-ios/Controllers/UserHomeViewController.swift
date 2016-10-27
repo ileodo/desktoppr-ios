@@ -7,8 +7,9 @@
 //
 
 import UIKit
+import SKPhotoBrowser
 
-class UserHomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, WallpaperCellDelegator, UserHeaderViewDelegator, ViewPresentable, UICollectionViewDelegateFlowLayout {
+class UserHomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, WallpaperCellDelegator, UserHeaderViewDelegator, ViewPresentable, ShowUploaderDelegator {
     
     // MARK: - Properties:UI
     @IBOutlet weak var wallpaperCollectionView: UICollectionView!
@@ -49,6 +50,10 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
         loadUserAndWallpapers()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        wallpaperCollectionView?.collectionViewLayout.invalidateLayout()
+    }
     
     // MARK: - Logic:Business
     func logout(){
@@ -108,13 +113,37 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
 
     // MARK: - WallpaperCellDelegator
     
-    func callSegueFromCell(cell: WallpaperCollectionViewCell, identifier: String) {
-        self.performSegue(withIdentifier: identifier, sender:cell )
+    func showWallpaperView(cell: WallpaperCollectionViewCell, data: Any?) {
+        let indexPath = wallpaperCollectionView?.indexPath(for: cell)!
+        
+        var images = [SKPhoto]()
+        for wallpaper in wallpapers{
+            let photo = SKPhoto.photoWithImageURL((wallpaper.preview?.url)!)
+            photo.shouldCachePhotoURLImage = true
+            if let uploader = wallpaper.uploader {
+                photo.caption = "upload by " + uploader + " @ " + DateTransform.getStringFor(wallpaper.created_at!)
+            }
+            images.append(photo)
+        }
+        
+        let browser = WallpaperViewController(photos: images, wallpapers:wallpapers)
+        browser.showUploaderDelegate = self
+        browser.initializePageIndex((indexPath?.row)!)
+        present(browser, animated: true, completion: {})
     }
     
+    // MARK: - ShowUploaderDelegator
+    func showUploaderView(_ uploader: String) {
+        let userHomeViewController = self.storyboard?.instantiateViewController(withIdentifier: "userHome") as! UserHomeViewController
+        userHomeViewController.username = uploader
+        self.navigationController?.pushViewController(userHomeViewController, animated: true)
+    }
+    
+    // MARK: - UserHeaderViewDelegator
     func callSegueFromUserHeadView(view: UserHeaderView, identifier: String){
         self.performSegue(withIdentifier: identifier, sender: view)
     }
+   
     
     // MARK: - ViewPresentable
     func presentView(_ view:UIViewController,animated: Bool,completion: (()->Void)?) {
@@ -168,7 +197,9 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - UICollectionViewDelegateFlowLayout
     
     fileprivate let sectionInsets = UIEdgeInsets(top: 5.0, left: 5.0, bottom: 5.0, right: 5.0)
-    fileprivate let itemsPerRow: CGFloat = 3
+    fileprivate func itemsPerRow() -> CGFloat{
+        return view.frame.height>view.frame.width ? 3.0 : 6.0
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInsets
@@ -185,9 +216,9 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+        let paddingSpace = sectionInsets.left * (itemsPerRow() + 1)
         let availableWidth = collectionView.frame.width - paddingSpace
-        let widthPerItem = availableWidth / itemsPerRow
+        let widthPerItem = availableWidth / itemsPerRow()
         
         return CGSize(width: widthPerItem, height: widthPerItem)
     }
@@ -198,14 +229,7 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showDetails" {
-            let detailsViewController = segue.destination as! DetailsViewController
-            if let selectedImageCell = sender as? WallpaperCollectionViewCell {
-                let indexPath = wallpaperCollectionView!.indexPath(for: selectedImageCell)!
-                detailsViewController.wallpapers = wallpapers
-                detailsViewController.currentIndex = indexPath.row
-            }
-        }else if segue.identifier == "showFollowersList" {
+        if segue.identifier == "showFollowersList" {
             let userInfoListViewController = segue.destination as! UserInfoListController
             userInfoListViewController.type = UserInfoListController.ListType.Followers
             userInfoListViewController.baseUsername = self.username
@@ -222,7 +246,6 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
             generalCollectionViewController.type = GeneralCollectionViewController.CollectionType.Likes
             generalCollectionViewController.baseUsername = self.username
         }
-        
         
     }
     

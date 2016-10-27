@@ -48,23 +48,25 @@ class HomeViewCell: UICollectionViewCell {
             if let wallpaper = wallpaper{
                 wallpaper.loadImageTo(wallpaperImageView, size: .preview)
                 
-                uploaderText.text=wallpaper.uploader
-                
                 uploadTimeText.text="uploaded @ "+DateTransform.getStringFor(wallpaper.created_at!)
-                if(wallpaper.uploader != nil){
-                    APIWrapper.instance().userInfo(username: wallpaper.uploader!, successHandler: { (user:User) in
+                if let uploader = wallpaper.uploader {
+                    uploaderText.text=uploader
+                    APIWrapper.instance().userInfo(username: uploader, successHandler: { (user:User) in
                         user.loadAvatarTo(self.userAvatarView,finishCallback: {(view)->Void in
                             self.userAvatarView.layer.cornerRadius = self.userAvatarView.frame.height/2
                         })
                     })
-                    APIWrapper.instance().doesUserLike(username: Auth.user()!.username!, wallpaperId: wallpaper.id!, successHandler: { (isLike) in
-                        self.isLike = isLike
-                    })
-                    APIWrapper.instance().doesUserSync(username: Auth.user()!.username!, wallpaperId: wallpaper.id!, successHandler: { (hasSync) in
-                        self.hasSync = hasSync
-                    })
+                }else{
+                    uploaderText.text=""
                 }
                 
+                APIWrapper.instance().doesUserLike(username: Auth.user()!.username!, wallpaperId: wallpaper.id!, successHandler: { (isLike) in
+                    self.isLike = isLike
+                })
+                APIWrapper.instance().doesUserSync(username: Auth.user()!.username!, wallpaperId: wallpaper.id!, successHandler: { (hasSync) in
+                    self.hasSync = hasSync
+                })
+            
             }
         }
     }
@@ -141,7 +143,7 @@ class HomeViewCell: UICollectionViewCell {
     }
     
     func showWallpaperDetails(_ sender: UITapGestureRecognizer) {
-        self.delegate.callSegueFromCell(cell: self,identifier: "showDetails")
+        self.delegate.showWallpaperView(cell: self, data: nil)
     }
     
     func toggleLikeWallpaper(_ sender: UITapGestureRecognizer) {

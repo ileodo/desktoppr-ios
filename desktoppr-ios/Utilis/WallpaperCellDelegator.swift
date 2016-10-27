@@ -9,5 +9,5 @@
 import Foundation
 
 protocol WallpaperCellDelegator {
-    func callSegueFromCell(cell: WallpaperCollectionViewCell, identifier: String)
+    func showWallpaperView(cell: WallpaperCollectionViewCell, data: Any?)
 }
