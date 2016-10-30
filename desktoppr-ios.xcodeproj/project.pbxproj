@@ -33,6 +33,7 @@
 		49DA419F1D8E1CA80016F463 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 49DA419D1D8E1CA80016F463 /* LaunchScreen.storyboard */; };
 		49DA41AA1D8E1CA80016F463 /* desktoppr_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41A91D8E1CA80016F463 /* desktoppr_iosTests.swift */; };
 		49DA41B51D8E1CA80016F463 /* desktoppr_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DA41B41D8E1CA80016F463 /* desktoppr_iosUITests.swift */; };
+		49DD5A171DC648B40025E738 /* UserConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49DD5A161DC648B40025E738 /* UserConfig.swift */; };
 		49E68F4B1DB3E5CF00DC8C89 /* Pagination.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E68F4A1DB3E5CF00DC8C89 /* Pagination.swift */; };
 		49E68F4E1DB6A63400DC8C89 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E68F4D1DB6A63400DC8C89 /* LoginViewController.swift */; };
 		49E68F511DB6C4E400DC8C89 /* HomeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49E68F501DB6C4E400DC8C89 /* HomeViewCell.swift */; };
@@ -108,6 +109,7 @@
 		49DA41B41D8E1CA80016F463 /* desktoppr_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = desktoppr_iosUITests.swift; sourceTree = "<group>"; };
 		49DA41B61D8E1CA80016F463 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49DA41C21D8E270F0016F463 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		49DD5A161DC648B40025E738 /* UserConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserConfig.swift; sourceTree = "<group>"; };
 		49E68F4A1DB3E5CF00DC8C89 /* Pagination.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pagination.swift; sourceTree = "<group>"; };
 		49E68F4D1DB6A63400DC8C89 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		49E68F501DB6C4E400DC8C89 /* HomeViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewCell.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				490028531DB24DFF0094A40A /* Wallpaper.swift */,
 				49E68F4A1DB3E5CF00DC8C89 /* Pagination.swift */,
 				4937454F1DBAF75C0096543F /* Auth.swift */,
+				49DD5A161DC648B40025E738 /* UserConfig.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -601,6 +604,7 @@
 				4932FE171DBC2D5600367B11 /* SettingViewController.swift in Sources */,
 				49DA41931D8E1CA80016F463 /* AppDelegate.swift in Sources */,
 				49DA41951D8E1CA80016F463 /* ExploreViewController.swift in Sources */,
+				49DD5A171DC648B40025E738 /* UserConfig.swift in Sources */,
 				496922081DAEC945008E7E7E /* GeneralCollectionViewController.swift in Sources */,
 				49D643831DC2004E00ED4C3D /* WallpaperViewController.swift in Sources */,
 				490028521DB24DF60094A40A /* User.swift in Sources */,

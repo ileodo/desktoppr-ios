@@ -78,8 +78,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
         passwordText.resignFirstResponder()
         let processPopup = progressBarDisplayer("Loging...",true)
         APIWrapper.instance().basicAuth((usernameText.text!,passwordText.text!), { (user, apiToken) in
-            Auth.login(user: user, apiToken: apiToken)
-            Auth.remember(username: self.usernameText.text!, apiToken: apiToken)
+            Auth.login(user: user, apiToken: apiToken, remember:true)
             self.performSegue(withIdentifier: "entry", sender: sender)
             processPopup.removeFromSuperview()
         }) { (error) in
