@@ -13,8 +13,10 @@ class FollowingList{
     private var _followingList : Set<String>
     private var _pagination:Pagination?{
         didSet{
-            for i:UInt in 1..<_pagination!.pages!{
-                requestApi(page: i)
+            if _pagination!.pages!>0{
+                for i:UInt in 1..._pagination!.pages!{
+                    requestApi(page: i)
+                }
             }
         }
     }

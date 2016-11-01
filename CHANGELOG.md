@@ -1,5 +1,9 @@
 # Change Log
 
+## 0.0.4 - 2016-11-01  
+### Changed
+- Set default filter as safe
+
 ## 0.0.3 - 2016-10-27
 ### Added
 - Add options action on WallpaperView
@@ -28,5 +32,6 @@
 - Initial version
 
 
+[0.0.4](https://github.com/ileodo/desktoppr-ios/compare/v0.0.2...v0.0.4)
 [0.0.3](https://github.com/ileodo/desktoppr-ios/compare/v0.0.2...v0.0.3)
 [0.0.2](https://github.com/ileodo/desktoppr-ios/compare/v0.0.1...v0.0.2)
