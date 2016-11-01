@@ -51,7 +51,7 @@ class APIWrapper{
             static let unfollow = "https://api.desktoppr.co/1/users/$USERNAME/follow?auth_token=$API_TOKEN"
         }
         struct wallpapers {
-            static let list = "https://api.desktoppr.co/1/wallpapers?page=$PAGE&safe_filter=$FILTER"
+            static let list = "https://api.desktoppr.co/1/wallpapers?page=$PAGE"
             static let random = "https://api.desktoppr.co/1/wallpapers/random"
             
             static let like = "https://api.desktoppr.co/1/user/wallpapers/$WALLPAPER_ID/like?auth_token=$API_TOKEN"
@@ -186,8 +186,8 @@ class APIWrapper{
     
     // MARK: wallpapers
     
-    func getWallpapers(page:UInt = 1,filter:Filter = .safe, successHandler:@escaping (_ wallpapers:[Wallpaper],_ count:UInt,_ pagination:Pagination) -> Void = {_ in },failedHandler:@escaping (_ error:String?, _ errorDescription:String?) -> Void = {_ in }){
-        let url = urls.wallpapers.list.replacingOccurrences(of: "$PAGE", with: String(page)).replacingOccurrences(of: "$FILTER", with: APIWrapper.getFilter(filter))
+    func getWallpapers(page:UInt = 1, successHandler:@escaping (_ wallpapers:[Wallpaper],_ count:UInt,_ pagination:Pagination) -> Void = {_ in },failedHandler:@escaping (_ error:String?, _ errorDescription:String?) -> Void = {_ in }){
+        let url = urls.wallpapers.list.replacingOccurrences(of: "$PAGE", with: String(page))
         processWallpapers(url,successHandler,failedHandler)
     }
     

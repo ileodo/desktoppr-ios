@@ -13,4 +13,11 @@ class UserConfig {
    
     var defaultFilter : APIWrapper.Filter!
     
+    init() {
+        defaultFilter = .safe
+    }
+    
+    func getFilter() -> APIWrapper.Filter{
+        return defaultFilter
+    }
 }

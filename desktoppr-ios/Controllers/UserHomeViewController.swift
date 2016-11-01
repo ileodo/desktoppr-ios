@@ -95,7 +95,9 @@ class UserHomeViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     
     func loadWallpapers(page:UInt = 1){
-        APIWrapper.instance().getWallpapers(username: username!, page:page, filter:.all, successHandler: { (wallpapers, count, pagination) in
+        
+        let filter = Auth.user()?.username == self.username ? .all : Auth.userConfig()?.getFilter()
+        APIWrapper.instance().getWallpapers(username: username!, page:page, filter: filter!, successHandler: { (wallpapers, count, pagination) in
             self.pagination = pagination
             if(count==0){
                 self.pagination?.next = nil

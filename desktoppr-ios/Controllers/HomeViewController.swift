@@ -38,7 +38,7 @@ class HomeViewController: UICollectionViewController,UICollectionViewDelegateFlo
 
     // MARK: - Logic:Data
     func loadWallpapers(page:UInt = 1){
-        APIWrapper.instance().getWallpapers(page:page,filter:.all, successHandler: { (wallpapers, count, pagination) in
+        APIWrapper.instance().getWallpapers(page:page, successHandler: { (wallpapers, count, pagination) in
             self.pagination = pagination
             if(count==0){
                 self.pagination?.next = nil

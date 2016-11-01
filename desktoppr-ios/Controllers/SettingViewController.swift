@@ -28,7 +28,17 @@ class SettingViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        if(indexPath.section==0 && indexPath.row==0){
+            if(Auth.userConfig()?.getFilter() == .safe){
+                Auth.userConfig()?.defaultFilter = .all
+            }else{
+                Auth.userConfig()?.defaultFilter = .safe
+            }
+        }
         if(indexPath.section==1 && indexPath.row==0){
+            UIApplication.shared.open(URL(string: "https://github.com/ileodo/desktoppr-ios")!, options: [:], completionHandler: nil)
+        }
+        if(indexPath.section==1 && indexPath.row==1){
             UIApplication.shared.open(URL(string: "http://ileodo.com")!, options: [:], completionHandler: nil)
         }
     }
